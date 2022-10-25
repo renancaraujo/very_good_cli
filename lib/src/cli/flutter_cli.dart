@@ -79,6 +79,7 @@ class Flutter {
   static Future<void> packagesGet({
     String cwd = '.',
     bool recursive = false,
+    bool offline = false,
     required Logger logger,
   }) async {
     await _runCommand(
@@ -97,7 +98,12 @@ class Flutter {
         try {
           await _Cmd.run(
             'flutter',
-            ['packages', 'get'],
+            [
+              'packages',
+              'get',
+              if(offline)
+                '--offline'
+            ],
             workingDirectory: cwd,
             logger: logger,
           );
